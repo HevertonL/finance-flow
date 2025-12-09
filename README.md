@@ -78,8 +78,7 @@ A aplicação possui `data-testid` em todos os elementos importantes para facili
 ```
 finance-flow/
 ├── docs/
-│   ├── ARQUITETURA.md              # Documentação técnica detalhada
-│   └── GUIA_ATUALIZACAO_DOCS.md    # Guia de atualização de documentação
+│   └── DOCUMENTACAO_TECNICA.md    # Guia de documentação
 ├── src/
 │   ├── components/
 │   │   ├── Header.jsx               # Cabeçalho com resumo financeiro
