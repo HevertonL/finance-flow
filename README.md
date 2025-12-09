@@ -64,8 +64,6 @@ A aplicação possui `data-testid` em todos os elementos importantes para facili
 **Outros:**
 - `loading`: Indicador de carregamento
 
-> 📖 Para lista completa, consulte `docs/ARQUITETURA.md`
-
 ## 🛠️ Tecnologias
 
 - React 18
