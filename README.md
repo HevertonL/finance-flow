@@ -64,8 +64,6 @@ A aplicação possui `data-testid` em todos os elementos importantes para facili
 **Outros:**
 - `loading`: Indicador de carregamento
 
-> 📖 Para lista completa, consulte `docs/ARQUITETURA.md`
-
 ## 🛠️ Tecnologias
 
 - React 18
@@ -78,8 +76,7 @@ A aplicação possui `data-testid` em todos os elementos importantes para facili
 ```
 finance-flow/
 ├── docs/
-│   ├── ARQUITETURA.md              # Documentação técnica detalhada
-│   └── GUIA_ATUALIZACAO_DOCS.md    # Guia de atualização de documentação
+│   └── DOCUMENTACAO_TECNICA.md    # Guia de documentação
 ├── src/
 │   ├── components/
 │   │   ├── Header.jsx               # Cabeçalho com resumo financeiro
@@ -99,9 +96,6 @@ finance-flow/
 ├── postcss.config.js
 └── README.md
 ```
-
-> 📖 Para documentação completa da arquitetura, consulte `docs/ARQUITETURA.md`  
-> 🧪 Para casos de teste e documentação de QA, consulte `docs/CASOS_DE_TESTE_QA.md`  
+ 
 > 📋 Para documentação técnica detalhada (RNs, Fluxos, Estruturas), consulte `docs/DOCUMENTACAO_TECNICA.md`  
-> 😈 Para sistema de Gremlins (Chaos Engineering), consulte `docs/GREMLINS.md`
 
