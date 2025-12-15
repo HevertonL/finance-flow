@@ -47,13 +47,6 @@ const GremlinController: React.FC<GremlinControllerProps> = ({
     setSelectedGremlins([]);
   };
 
-  // Só renderiza em desenvolvimento
-  // Verifica se está em modo produção
-  // @ts-ignore - import.meta.env é fornecido pelo Vite em tempo de build
-  if (import.meta.env.PROD) {
-    return null;
-  }
-
   return (
     <div className="fixed bottom-4 right-4 bg-yellow-100 border-2 border-yellow-500 rounded-lg p-4 shadow-lg z-50 max-w-sm">
       <div className="flex items-center justify-between mb-3">

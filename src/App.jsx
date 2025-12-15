@@ -12,6 +12,7 @@ function App() {
   const [editingTransaction, setEditingTransaction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
+  const [gremlinEnabled, setGremlinEnabled] = useState(false);
 
   // Calcular resumo financeiro
   const calculateSummary = () => {
@@ -121,7 +122,19 @@ function App() {
       <Header summary={summary} />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-between items-center mb-4">
+          <button
+            onClick={() => setGremlinEnabled((prev) => !prev)}
+            className={`px-4 py-2 rounded-md text-sm font-medium shadow-md border ${
+              gremlinEnabled
+                ? 'bg-purple-100 text-purple-700 border-purple-400'
+                : 'bg-white text-gray-700 border-gray-300'
+            }`}
+            data-testid="btn-toggle-gremlin"
+          >
+            {gremlinEnabled ? 'Desativar Modo Chaos' : 'Ativar Modo Chaos'}
+          </button>
+
           <button
             onClick={handleNewTransaction}
             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium shadow-md"
@@ -160,8 +173,8 @@ function App() {
         />
       )}
 
-      {/* Gremlin Controller - Apenas em desenvolvimento */}
-      <GremlinController defaultActive={false} />
+      {/* Gremlin Controller - Pode ser habilitado/desabilitado via botão, inclusive em produção */}
+      {gremlinEnabled && <GremlinController defaultActive={true} />}
     </div>
   );
 }
