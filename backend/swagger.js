@@ -16,9 +16,13 @@ const options = {
         url: 'http://localhost:3000',
         description: 'Servidor Local',
       },
+      {
+        url: 'https://finance-flow-ob02.onrender.com',
+        description: 'Servidor Produção (Render)',
+      },
     ],
   },
-  apis: ['./index.js'], 
+  apis: ['./index.js'],
 };
 
 const specs = swaggerJsdoc(options);
