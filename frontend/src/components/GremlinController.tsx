@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGremlins, GREMLIN_TYPES } from '../hooks/useGremlins.js';
 
 interface GremlinControllerProps {
@@ -9,16 +9,25 @@ interface GremlinControllerProps {
  * Componente de controle para ativar/desativar gremlins
  * Útil para desenvolvimento e testes
  */
-const GremlinController: React.FC<GremlinControllerProps> = ({ 
-  defaultActive = false 
+const GremlinController: React.FC<GremlinControllerProps> = ({
+  defaultActive = false
 }) => {
-  const [active, setActive] = useState(defaultActive);
+  // 1. MUDANÇA: Inicializa lendo do LocalStorage ou usa o padrão
+  const [active, setActive] = useState(() => {
+    const saved = localStorage.getItem('finance_flow_chaos');
+    return saved ? JSON.parse(saved).active : defaultActive;
+  });
+
   const [isMinimized, setIsMinimized] = useState(false);
   const [attackChance, setAttackChance] = useState(0.2);
   const [attackInterval, setAttackInterval] = useState(5000);
-  const [selectedGremlins, setSelectedGremlins] = useState(
-    Object.values(GREMLIN_TYPES)
-  );
+
+  // 2. MUDANÇA: Inicializa gremlins selecionados do LocalStorage
+  const [selectedGremlins, setSelectedGremlins] = useState(() => {
+    const saved = localStorage.getItem('finance_flow_chaos');
+    // Garante que pega os tipos novos (como NETWORK_ERROR) se existirem
+    return saved ? JSON.parse(saved).selectedGremlins : Object.values(GREMLIN_TYPES);
+  });
 
   const allGremlins = Object.values(GREMLIN_TYPES);
 
@@ -27,13 +36,24 @@ const GremlinController: React.FC<GremlinControllerProps> = ({
     attackChance,
     attackInterval,
     gremlinTypes: selectedGremlins,
-    onGremlinAttack: (type) => {
+    onGremlinAttack: (type: string) => {
       console.log(`🎯 Gremlin atacou: ${type}`);
     },
   });
 
-  const toggleGremlin = (gremlin) => {
-    setSelectedGremlins((prev) =>
+  // 3. MUDANÇA: Efeito para salvar no LocalStorage sempre que mudar algo
+  useEffect(() => {
+    const config = {
+      active,
+      selectedGremlins,
+      attackChance,
+      attackInterval
+    };
+    localStorage.setItem('finance_flow_chaos', JSON.stringify(config));
+  }, [active, selectedGremlins, attackChance, attackInterval]);
+
+  const toggleGremlin = (gremlin: string) => {
+    setSelectedGremlins((prev: string[]) =>
       prev.includes(gremlin)
         ? prev.filter((g) => g !== gremlin)
         : [...prev, gremlin]
@@ -41,10 +61,9 @@ const GremlinController: React.FC<GremlinControllerProps> = ({
   };
 
   const handleClearAllGremlins = () => {
-    // Limpa os gremlins visuais
     clearGremlins();
-    // Desmarca todos os checkboxes
-    setSelectedGremlins([]);
+    // Opcional: Se quiser limpar a seleção também, descomente a linha abaixo
+    // setSelectedGremlins([]); 
   };
 
   return (
@@ -63,11 +82,10 @@ const GremlinController: React.FC<GremlinControllerProps> = ({
           </button>
           <button
             onClick={() => setActive(!active)}
-            className={`px-3 py-1 rounded text-xs font-medium ${
-              active
+            className={`px-3 py-1 rounded text-xs font-medium ${active
                 ? 'bg-red-500 text-white'
                 : 'bg-green-500 text-white'
-            }`}
+              }`}
           >
             {active ? 'Desativar' : 'Ativar'}
           </button>
@@ -112,11 +130,11 @@ const GremlinController: React.FC<GremlinControllerProps> = ({
                 <label className="block text-xs text-yellow-800 mb-2">
                   Gremlins Ativos:
                 </label>
-                <div className="space-y-1 max-h-32 overflow-y-auto">
+                <div className="space-y-1 max-h-32 overflow-y-auto custom-scrollbar">
                   {allGremlins.map((gremlin) => (
                     <label
                       key={gremlin}
-                      className="flex items-center text-xs text-yellow-800 cursor-pointer"
+                      className="flex items-center text-xs text-yellow-800 cursor-pointer hover:bg-yellow-200 rounded p-1"
                     >
                       <input
                         type="checkbox"
@@ -134,7 +152,7 @@ const GremlinController: React.FC<GremlinControllerProps> = ({
                 onClick={handleClearAllGremlins}
                 className="w-full px-3 py-1 bg-blue-500 text-white rounded text-xs font-medium hover:bg-blue-600"
               >
-                🧹 Limpar Todos os Gremlins
+                🧹 Limpar Bagunça
               </button>
             </>
           )}
@@ -149,4 +167,3 @@ const GremlinController: React.FC<GremlinControllerProps> = ({
 };
 
 export default GremlinController;
-
