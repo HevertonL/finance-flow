@@ -1,13 +1,3 @@
-Com certeza, Verton! Um projeto desse nível merece um **README.md** que chame a atenção de recrutadores e outros QAs logo de cara.
-
-O segredo aqui é destacar o **"Modo Caos"** como a *feature* principal, pois é isso que diferencia seu projeto de um CRUD financeiro comum.
-
-Aqui está o código completo do novo `README.md`. É só copiar e colar na raiz do seu repositório GitHub.
-
----
-
-### 📄 Novo `README.md` (Copie o código abaixo)
-
 ```markdown
 # 💸 FinanceFlow - Fullstack Chaos Engineering App
 
