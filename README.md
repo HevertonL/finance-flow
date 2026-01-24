@@ -1,160 +1,120 @@
-# FinanceFlow 💰
+Com certeza, Verton! Um projeto desse nível merece um **README.md** que chame a atenção de recrutadores e outros QAs logo de cara.
 
-Aplicação Fullstack para gestão financeira pessoal.
-**Frontend:** React (Vite) + TailwindCSS | **Backend:** Node.js (Express) + Prisma + PostgreSQL.
+O segredo aqui é destacar o **"Modo Caos"** como a *feature* principal, pois é isso que diferencia seu projeto de um CRUD financeiro comum.
 
-O Frontend já está preparado para deploy na Vercel e o Backend estruturado para rodar localmente com Docker.
-
-## 🚀 Funcionalidades
-
-- **Arquitetura Cliente-Servidor Real**: Comunicação via API REST entre React e Node.js.
-- **Persistência de Dados**: Banco de dados PostgreSQL rodando em container Docker.
-- **ORM Moderno**: Uso do Prisma para gerenciamento de schema e migrations.
-- **CRUD Completo**: Criar, listar, editar e excluir transações reais.
-- **Dashboard Financeiro**: Cálculos de entradas, saídas e saldo realizados em tempo real.
-- **Feedback Visual**: Sistema de Toasts para sucesso/erro nas requisições.
-- **Acessibilidade para QA**: Todos os elementos críticos possuem `data-testid` para automação.
-
-## 🛠️ Tecnologias
-
-### Frontend
-- React 18
-- Vite
-- TailwindCSS
-- Axios (Consumo de API)
-
-### Backend & Banco
-- Node.js (v20+)
-- Express
-- Prisma ORM
-- PostgreSQL
-- Docker & Docker Compose
+Aqui está o código completo do novo `README.md`. É só copiar e colar na raiz do seu repositório GitHub.
 
 ---
 
-## 📦 Pré-requisitos
+### 📄 Novo `README.md` (Copie o código abaixo)
 
-Antes de começar, certifique-se de ter instalado:
-* [Node.js](https://nodejs.org/)
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/) (e que ele esteja rodando)
-* Git
+```markdown
+# 💸 FinanceFlow - Fullstack Chaos Engineering App
 
-## 🏃 Como Rodar o Projeto
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=black)
 
-O projeto está dividido em duas pastas principais: `backend` e `frontend`. Siga a ordem abaixo:
+> **Um sistema de gestão financeira desenhado propositalmente para testar a resiliência de automações de QA.**
 
-### 1. Banco de Dados (Docker)
-Na raiz do projeto, suba o container do banco:
+## 🚀 Sobre o Projeto
+
+O **FinanceFlow** é uma aplicação Fullstack moderna que simula um sistema bancário real. Além das funcionalidades padrões (criar e listar transações), ele possui um **"Chaos Mode"** (Modo Caos) integrado.
+
+Este modo permite injetar falhas controladas no sistema para desafiar scripts de testes automatizados (Cypress, Playwright, Robot Framework, etc.), forçando o QA a criar cenários de teste mais robustos e resilientes.
+
+### 🌐 Links do Projeto
+- **Frontend (Vercel):** [COLE_O_LINK_DA_VERCEL_AQUI]
+- **Backend (Render):** [COLE_O_LINK_DO_RENDER_AQUI]
+- **Documentação API (Swagger):** [COLE_O_LINK_DO_RENDER_AQUI]/api-docs
+
+---
+
+## 😈 Chaos Engineering (O Diferencial)
+
+O projeto conta com um **Gremlin Controller**, um painel exclusivo onde você pode ativar "Gremlins" que sabotam a aplicação em tempo real.
+
+### Tipos de Gremlins Disponíveis:
+
+| Ícone | Gremlin | Descrição do Efeito | Desafio para QA |
+|:---:|---|---|---|
+| 🔥 | **NETWORK_ERROR** | Intercepta requisições e retorna erro 500 propositalmente. | Testar retries e tratamento de erros da API. |
+| 🐢 | **RANDOM_DELAY** | Adiciona delays aleatórios (1s a 4s) nas respostas da API. | Quebrar testes que dependem de waits fixos. |
+| 👻 | **GHOST_BUTTON** | Botões importantes (como "Salvar") desaparecem ou ficam transparentes. | Validar se o teste falha ou aguarda o elemento. |
+| ❄️ | **FROZEN_INPUT** | Inputs de texto travam e não aceitam digitação. | Testar timeouts de preenchimento de formulário. |
+| 🧮 | **MATH_ERROR** | Altera valores numéricos na tabela para `NaN` ou valores errados. | Validar asserções de conteúdo e cálculos. |
+
+---
+
+## 🛠️ Tech Stack & Arquitetura
+
+O projeto foi construído utilizando uma arquitetura distribuída em serviços de nuvem modernos:
+
+* **Frontend:** React + Vite + TailwindCSS (Hospedado na **Vercel**)
+* **Backend:** Node.js + Express (Hospedado no **Render**)
+* **Database:** PostgreSQL (Hospedado na **Neon**)
+* **ORM:** Prisma
+* **Docs:** Swagger UI
+
+---
+
+## 📦 Como Rodar Localmente
+
+Siga os passos abaixo para rodar o projeto na sua máquina:
+
+### 1. Backend
 ```bash
-docker-compose up -d
+# Clone o repositório
+git clone (https://github.com/HevertonL/finance-flow.git)
 
-```
-
-### 2. Backend (API)
-
-Abra um terminal, entre na pasta backend e instale as dependências:
-
-```bash
+# Entre na pasta do backend
 cd backend
+
+# Instale as dependências
 npm install
 
-```
+# Configure o arquivo .env
+# Crie um arquivo .env e adicione sua URL do banco Neon ou Local:
+# DATABASE_URL="postgresql://user:password@host:port/db"
 
-Configure o banco de dados (Criação das tabelas):
+# Rode as migrations do Prisma
+npx prisma migrate dev
 
-```bash
-npx prisma generate
-npx prisma migrate dev --name init
-
-```
-
-Rode o servidor:
-
-```bash
+# Inicie o servidor
 npm run dev
+# O backend rodará em http://localhost:3000
 
 ```
 
-*O backend rodará em: `http://localhost:3000*`
-
-### 3. Frontend (Aplicação)
-
-Abra **outro terminal**, entre na pasta frontend e rode:
+### 2. Frontend
 
 ```bash
+# Em outro terminal, entre na pasta do frontend
 cd frontend
+
+# Instale as dependências
 npm install
+
+# Inicie o frontend
 npm run dev
-
-```
-
-*O frontend rodará em: `http://localhost:5173*`
-
----
-
-## 🧪 Testes e QA
-
-A aplicação foi desenhada pensando em QA. Utilizamos atributos `data-testid` estáveis para facilitar a automação com Cypress, Robot Framework ou Playwright.
-
-### Mapeamento de Elementos (Data-TestIDs):
-
-**Navegação e Ações:**
-
-* `btn-new-transaction`: Botão abrir modal de nova transação
-* `btn-edit-{id}`: Botão de editar (na linha da tabela)
-* `btn-delete-{id}`: Botão de excluir (na linha da tabela)
-* `btn-save`: Botão Salvar (Modal)
-* `btn-cancel`: Botão Cancelar (Modal)
-
-**Formulário (Modal):**
-
-* `select-type`: Tipo de transação (Entrada/Saída)
-* `input-description`: Campo descrição
-* `input-amount`: Campo valor
-* `input-date`: Campo data
-* `select-category`: Select de categoria
-* `select-status`: Select de status (Pago/Pendente)
-
-**Tabela e Visualização:**
-
-* `transaction-table`: Container da tabela
-* `table-row-{id}`: Linha específica da transação
-* `cell-description-{id}`: Célula de descrição
-* `cell-amount-{id}`: Célula de valor
-* `summary-income`: Card de Entradas
-* `summary-expense`: Card de Saídas
-* `summary-balance`: Card de Saldo Total
-* `table-empty`: Mensagem de "Nenhuma transação cadastrada"
-
-**Feedback:**
-
-* `toast`: Notificação flutuante de sucesso/erro
-* `loading`: Spinner de carregamento
-
----
-
-## 📝 Estrutura de Pastas
-
-```
-finance-flow/
-├── backend/                # API Node.js
-│   ├── prisma/             # Schema do Banco e Migrations
-│   ├── src/                # Código fonte do Backend
-│   ├── index.js            # Entrada da API
-│   └── package.json
-│
-├── frontend/               # Aplicação React
-│   ├── src/
-│   │   ├── components/     # Componentes (Header, Tabela, Modal)
-│   │   ├── services/       # Configuração do Axios (api.js)
-│   │   └── ...
-│   └── package.json
-│
-├── docker-compose.yml      # Configuração do Banco de Dados
-└── README.md
+# O frontend rodará em http://localhost:5173
 
 ```
 
 ---
 
-> 📋 Para documentação técnica detalhada (RNs, Fluxos, Estruturas), consulte `docs/DOCUMENTACAO_TECNICA.md`
+## 🧪 Desafio para QAs
+
+Consegue criar um script de automação que sobreviva ao **Modo Caos** com 50% de chance de ataque?
+
+1. Ative o **Chaos Mode** no painel (canto inferior direito).
+2. Tente rodar seus testes de regressão.
+3. Melhore seus scripts para lidar com a instabilidade!
+
+---
+
+Desenvolvido por **Heverton Luiz** 💻
+
+```
