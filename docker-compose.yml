@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: finance_local_db
+    environment:
+      POSTGRES_USER: user_local
+      POSTGRES_PASSWORD: password_local
+      POSTGRES_DB: finance_local
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:

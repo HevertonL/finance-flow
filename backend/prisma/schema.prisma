@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo da Transação (Espelho do que o Front envia)
+model Transaction {
+  id          String   @id @default(uuid())
+  description String
+  amount      Float
+  type        String
+  category    String
+  date        DateTime
+  status      String
+  createdAt   DateTime @default(now())
+}
