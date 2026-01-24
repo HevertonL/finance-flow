@@ -3,12 +3,16 @@ const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerSpecs = require('./swagger');
+
 const app = express();
 const prisma = new PrismaClient();
 
 // Middlewares
 app.use(express.json()); // Para entender o JSON que vem do Front
-app.use(cors());         // Para liberar o acesso do Front (porta 5173)
+app.use(cors());
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpecs)); 
 
 // Rota de Saúde (Health Check)
 app.get('/', (req, res) => {
@@ -19,8 +23,50 @@ app.get('/', (req, res) => {
 // ROTAS DE TRANSAÇÕES (CRUD)
 // ==========================================
 
+/**
+ * @swagger
+ * /transactions:
+ *   get:
+ *     summary: Retorna a lista de todas as transações
+ *     tags: [Transações]
+ *     responses:
+ *       200:
+ *         description: Lista de transações retornada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     description: ID único da transação (UUID)
+ *                   details:
+ *                     type: string
+ *                     description: Descrição da transação
+ *                   amount:
+ *                     type: number
+ *                     description: Valor monetário
+ *                   transactionType:
+ *                     type: string
+ *                     enum: [ENTRADA, SAIDA]
+ *                     description: Tipo da transação
+ *                   category:
+ *                     type: string
+ *                     description: "Categoria (Ex: Alimentacao, Salario)"
+ *                   date:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Data da transação
+ *                   status:
+ *                     type: string
+ *                     description: "Status (Ex: PENDENTE, PAGO)"
+ */
+
 // 1. LISTAR (GET)
 app.get('/transactions', async (req, res) => {
+   // ... (seu código continua igual aqui)
   try {
     const transactions = await prisma.transaction.findMany({
       orderBy: {
@@ -33,6 +79,46 @@ app.get('/transactions', async (req, res) => {
     res.status(500).json({ error: "Erro interno ao buscar transações" });
   }
 });
+
+/**
+ * @swagger
+ * /transactions:
+ *   post:
+ *     summary: Cria uma nova transação
+ *     tags: [Transações]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - description
+ *               - amount
+ *               - transactionType
+ *               - category
+ *               - date
+ *             properties:
+ *               description:
+ *                 type: string
+ *               amount:
+ *                 type: number
+ *               transactionType:
+ *                 type: string
+ *                 enum: [ENTRADA, SAIDA]
+ *               category:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *                 format: date-time
+ *               status:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Transação criada com sucesso
+ *       400:
+ *         description: Campos obrigatórios faltando
+ */
 
 // 2. CRIAR (POST)
 app.post('/transactions', async (req, res) => {
@@ -62,6 +148,47 @@ app.post('/transactions', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /transactions/{id}:
+ *   put:
+ *     summary: Atualiza uma transação existente
+ *     tags: [Transações]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID da transação
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               description:
+ *                 type: string
+ *               amount:
+ *                 type: number
+ *               transactionType:
+ *                 type: string
+ *                 enum: [ENTRADA, SAIDA]
+ *               category:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *                 format: date-time
+ *               status:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Transação atualizada
+ *       404:
+ *         description: Transação não encontrada
+ */
+
 // 3. ATUALIZAR (PUT)
 app.put('/transactions/:id', async (req, res) => {
   try {
@@ -90,6 +217,26 @@ app.put('/transactions/:id', async (req, res) => {
     res.status(500).json({ error: "Erro ao atualizar transação" });
   }
 });
+
+/**
+ * @swagger
+ * /transactions/{id}:
+ *   delete:
+ *     summary: Remove uma transação
+ *     tags: [Transações]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID da transação
+ *     responses:
+ *       200:
+ *         description: Transação deletada com sucesso
+ *       404:
+ *         description: Transação não encontrada
+ */
 
 // 4. DELETAR (DELETE)
 app.delete('/transactions/:id', async (req, res) => {
