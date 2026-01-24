@@ -16,9 +16,9 @@ O **FinanceFlow** é uma aplicação Fullstack moderna que simula um sistema ban
 Este modo permite injetar falhas controladas no sistema para desafiar scripts de testes automatizados (Cypress, Playwright, Robot Framework, etc.), forçando o QA a criar cenários de teste mais robustos e resilientes.
 
 ### 🌐 Links do Projeto
-- **Frontend (Vercel):** [COLE_O_LINK_DA_VERCEL_AQUI]
-- **Backend (Render):** [COLE_O_LINK_DO_RENDER_AQUI]
-- **Documentação API (Swagger):** [COLE_O_LINK_DO_RENDER_AQUI]/api-docs
+- **Frontend (Vercel):** [https://finance-flow-sooty.vercel.app/]
+- **Backend (Render):** [https://finance-flow-ob02.onrender.com/]
+- **Documentação API (Swagger):** [https://finance-flow-ob02.onrender.com/api-docs]
 
 ---
 
